@@ -1,3 +1,5 @@
+const Caver = require('caver-js');
+const caver = new Caver('https://node-api.klaytnapi.com/v1/klaytn');
 // 카이카스 지갑 연결
 async function connectWallet() {
   if (window.klaytn) {
