@@ -2,7 +2,11 @@
 async function connectWallet() {
   if (window.klaytn) {
     try {
-      await window.klaytn.enable();
+      const caver = new Caver(window.klaytn);
+      await caver.klay.sendTransaction({
+        type: 'ACCOUNT_UPDATE',
+        from: '0x0000000000000000000000000000000000000000',
+      });
       alert('Wallet connected!');
     } catch (error) {
       console.error('Failed to connect wallet:', error);
@@ -39,7 +43,7 @@ async function sendKlay() {
 }
 
 // 버튼 클릭 이벤트 핸들러 등록
-$(document).ready(function() {
+$(document).ready(function () {
   $('#connectButton').click(connectWallet);
   $('#sendButton').click(sendKlay);
 });
