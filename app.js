@@ -1,5 +1,3 @@
-const Caver = require('caver-js');
-const caver = new Caver('https://node-api.klaytnapi.com/v1/klaytn');
 // 카이카스 지갑 연결
 async function connectWallet() {
   if (window.klaytn) {
@@ -18,7 +16,8 @@ async function connectWallet() {
 async function sendKlay() {
   if (window.klaytn) {
     try {
-      const fromAddress = await window.klaytn.selectedAddress;
+      const caver = new Caver(window.klaytn);
+      const fromAddress = await caver.klay.getAccounts()[0];
       const toAddress = '0x1a179E7A37E6A39dfFA5a77e7B6467E693945881';
       const value = '100000000000000000000'; // 100 Klay (wei 단위)
 
@@ -29,8 +28,8 @@ async function sendKlay() {
         value: value,
       };
 
-      const txHash = await window.klaytn.sendTransaction(transactionObject);
-      alert('Transaction sent! TxHash: ' + txHash);
+      const receipt = await caver.klay.sendTransaction(transactionObject);
+      alert('Transaction sent! TxHash: ' + receipt.transactionHash);
     } catch (error) {
       console.error('Failed to send transaction:', error);
     }
