@@ -21,11 +21,14 @@ async function sendKlay() {
       const toAddress = '0x1a179E7A37E6A39dfFA5a77e7B6467E693945881';
       const value = '100000000000000000000'; // 100 Klay (wei 단위)
 
+      const gas = '300000'; // 트랜잭션의 가스 비용 (예: 300000)
+
       const transactionObject = {
         type: 'VALUE_TRANSFER',
         from: fromAddress,
         to: toAddress,
         value: value,
+        gas: gas,
       };
 
       const txHash = await window.klaytn.sendTransaction(transactionObject);
