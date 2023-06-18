@@ -3,67 +3,13 @@
 <head>
   <title>Klaytn Wallet Integration</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/caver-js@1.5.1/dist/caver.js"></script>
-  <script>
-    window.onload = function () {
-      if (window.klaytn) {
-        window.caver = new Caver(window.klaytn.default);
-      }
-    };
-  </script>
 </head>
 <body>
   <h1>Klaytn Wallet Integration</h1>
-
   <button id="connectButton">Connect Wallet</button>
   <button id="sendButton" disabled>Send 100 Klay</button>
 
-  <script>
-    // 카이카스 지갑 연결
-    async function connectWallet() {
-      if (window.klaytn) {
-        try {
-          await window.klaytn.enable();
-          alert('Wallet connected!');
-          $('#sendButton').prop('disabled', false); // 전송 버튼 활성화
-        } catch (error) {
-          console.error('Failed to connect wallet:', error);
-        }
-      } else {
-        alert('Please install Klaytn wallet extension.');
-      }
-    }
-
-    // Klay 전송
-    async function sendKlay() {
-      if (window.caver) {
-        try {
-          const fromAddress = await window.caver.klay.getAccounts()[0];
-          const toAddress = '0x1a179E7A37E6A39dfFA5a77e7B6467E693945881';
-          const value = '100000000000000000000'; // 100 Klay (wei 단위)
-
-          const transactionObject = {
-            type: 'VALUE_TRANSFER',
-            from: fromAddress,
-            to: toAddress,
-            value: value,
-          };
-
-          const receipt = await window.caver.klay.sendTransaction(transactionObject);
-          alert('Transaction sent! TxHash: ' + receipt.transactionHash);
-        } catch (error) {
-          console.error('Failed to send transaction:', error);
-        }
-      } else {
-        alert('Please connect Klaytn wallet.');
-      }
-    }
-
-    // 버튼 클릭 이벤트 핸들러 등록
-    $(document).ready(function () {
-      $('#connectButton').click(connectWallet);
-      $('#sendButton').click(sendKlay);
-    });
-  </script>
+  <script src="js/caver.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
